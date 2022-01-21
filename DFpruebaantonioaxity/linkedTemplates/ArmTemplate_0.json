@@ -1,0 +1,1547 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "DFpruebaantonioaxity"
+		},
+		"SQLout_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'SQLout'"
+		},
+		"importCSVmovies_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'importCSVmovies'"
+		},
+		"ls_datalake_curated_AHP_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'ls_datalake_curated_AHP'"
+		},
+		"ls_datalake_raw_AHP_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'ls_datalake_raw_AHP'"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/SQLout')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlDatabase",
+				"typeProperties": {
+					"connectionString": "[parameters('SQLout_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/importCSVmovies')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobStorage",
+				"typeProperties": {
+					"connectionString": "[parameters('importCSVmovies_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ls_datalake_curated_AHP')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobStorage",
+				"typeProperties": {
+					"connectionString": "[parameters('ls_datalake_curated_AHP_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ls_datalake_raw_AHP')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobStorage",
+				"typeProperties": {
+					"connectionString": "[parameters('ls_datalake_raw_AHP_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/importCSVmovie')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "importCSVmovies",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "movies_AMAZON.csv",
+						"container": "terraform-demo"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "IMDB_ID",
+						"type": "String"
+					},
+					{
+						"name": "RL_ID",
+						"type": "String"
+					},
+					{
+						"name": "Name",
+						"type": "String"
+					},
+					{
+						"name": "Release Date",
+						"type": "String"
+					},
+					{
+						"name": "Rated",
+						"type": "String"
+					},
+					{
+						"name": "Duration",
+						"type": "String"
+					},
+					{
+						"name": "Genre",
+						"type": "String"
+					},
+					{
+						"name": "Rating",
+						"type": "String"
+					},
+					{
+						"name": "Vote Count",
+						"type": "String"
+					},
+					{
+						"name": "MovieMeter",
+						"type": "String"
+					},
+					{
+						"name": "Production Company",
+						"type": "String"
+					},
+					{
+						"name": "Director",
+						"type": "String"
+					},
+					{
+						"name": "Writer",
+						"type": "String"
+					},
+					{
+						"name": "Producer",
+						"type": "String"
+					},
+					{
+						"name": "Composer",
+						"type": "String"
+					},
+					{
+						"name": "Cinematographer",
+						"type": "String"
+					},
+					{
+						"name": "Editor",
+						"type": "String"
+					},
+					{
+						"name": "Casting Directors",
+						"type": "String"
+					},
+					{
+						"name": "Product Designers",
+						"type": "String"
+					},
+					{
+						"name": "Budget",
+						"type": "String"
+					},
+					{
+						"name": "Opening Weekend",
+						"type": "String"
+					},
+					{
+						"name": "Gross (US & Canada)",
+						"type": "String"
+					},
+					{
+						"name": "Gross (World)",
+						"type": "String"
+					},
+					{
+						"name": "Rating_All_AllAges_Rating",
+						"type": "String"
+					},
+					{
+						"name": "Rating_All_AllAges_Number",
+						"type": "String"
+					},
+					{
+						"name": "Rating_All_under18_Rating",
+						"type": "String"
+					},
+					{
+						"name": "Rating_All_under18_Number",
+						"type": "String"
+					},
+					{
+						"name": "Rating_All_18-29_Rating",
+						"type": "String"
+					},
+					{
+						"name": "Rating_All_18-29_Number",
+						"type": "String"
+					},
+					{
+						"name": "Rating_All_30-44_Rating",
+						"type": "String"
+					},
+					{
+						"name": "Rating_All_30-44_Number",
+						"type": "String"
+					},
+					{
+						"name": "Rating_All_45above_Rating",
+						"type": "String"
+					},
+					{
+						"name": "Rating_All_45above_Number",
+						"type": "String"
+					},
+					{
+						"name": "Rating_Male_AllAges_Rating",
+						"type": "String"
+					},
+					{
+						"name": "Rating_Male_MaleAges_Number",
+						"type": "String"
+					},
+					{
+						"name": "Rating_Male_under18_Rating",
+						"type": "String"
+					},
+					{
+						"name": "Rating_Male_under18_Number",
+						"type": "String"
+					},
+					{
+						"name": "Rating_Male_18-29_Rating",
+						"type": "String"
+					},
+					{
+						"name": "Rating_Male_18-29_Number",
+						"type": "String"
+					},
+					{
+						"name": "Rating_Male_30-44_Rating",
+						"type": "String"
+					},
+					{
+						"name": "Rating_Male_30-44_Number",
+						"type": "String"
+					},
+					{
+						"name": "Rating_Male_45above_Rating",
+						"type": "String"
+					},
+					{
+						"name": "Rating_Male_45above_Number",
+						"type": "String"
+					},
+					{
+						"name": "Rating_Female_AllAges_Rating",
+						"type": "String"
+					},
+					{
+						"name": "Rating_Female_AllAges_Number",
+						"type": "String"
+					},
+					{
+						"name": "Rating_Female_under18_Rating",
+						"type": "String"
+					},
+					{
+						"name": "Rating_Female_under18_Number",
+						"type": "String"
+					},
+					{
+						"name": "Rating_Female_18-29_Rating",
+						"type": "String"
+					},
+					{
+						"name": "Rating_Female_18-29_Number",
+						"type": "String"
+					},
+					{
+						"name": "Rating_Female_30-44_Rating",
+						"type": "String"
+					},
+					{
+						"name": "Rating_Female_30-44_Number",
+						"type": "String"
+					},
+					{
+						"name": "Rating_Female_45above_Rating",
+						"type": "String"
+					},
+					{
+						"name": "Rating_Female_45above_Number",
+						"type": "String"
+					},
+					{
+						"name": "country_of_origin",
+						"type": "String"
+					},
+					{
+						"name": "Follows",
+						"type": "String"
+					},
+					{
+						"name": "Followed_by",
+						"type": "String"
+					},
+					{
+						"name": "Version_of",
+						"type": "String"
+					},
+					{
+						"name": "Spin_off",
+						"type": "String"
+					},
+					{
+						"name": "Remake_of",
+						"type": "String"
+					},
+					{
+						"name": "BestMovie_Win",
+						"type": "String"
+					},
+					{
+						"name": "BestDirector_Win",
+						"type": "String"
+					},
+					{
+						"name": "BestActor_Win",
+						"type": "String"
+					},
+					{
+						"name": "BestActress_Win",
+						"type": "String"
+					},
+					{
+						"name": "BestMovie_Nom",
+						"type": "String"
+					},
+					{
+						"name": "BestDirector_Nom",
+						"type": "String"
+					},
+					{
+						"name": "BestActor_Nom",
+						"type": "String"
+					},
+					{
+						"name": "BestActress_Nom",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/importCSVmovies')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/outputSQLmovies')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "SQLout",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "IMDB_ID",
+						"type": "text"
+					},
+					{
+						"name": "RL_ID",
+						"type": "text"
+					},
+					{
+						"name": "Name",
+						"type": "text"
+					},
+					{
+						"name": "Release Date",
+						"type": "text"
+					},
+					{
+						"name": "Rated",
+						"type": "text"
+					},
+					{
+						"name": "Duration",
+						"type": "text"
+					},
+					{
+						"name": "Genre",
+						"type": "text"
+					},
+					{
+						"name": "Rating",
+						"type": "text"
+					},
+					{
+						"name": "Vote Count",
+						"type": "text"
+					},
+					{
+						"name": "MovieMeter",
+						"type": "text"
+					},
+					{
+						"name": "Production Company",
+						"type": "text"
+					},
+					{
+						"name": "Director",
+						"type": "text"
+					},
+					{
+						"name": "Writer",
+						"type": "text"
+					},
+					{
+						"name": "Producer",
+						"type": "text"
+					},
+					{
+						"name": "Composer",
+						"type": "text"
+					},
+					{
+						"name": "Cinematographer",
+						"type": "text"
+					},
+					{
+						"name": "Editor",
+						"type": "text"
+					},
+					{
+						"name": "Casting Directors",
+						"type": "text"
+					},
+					{
+						"name": "Product Designers",
+						"type": "text"
+					},
+					{
+						"name": "Budget",
+						"type": "text"
+					},
+					{
+						"name": "Opening Weekend",
+						"type": "text"
+					},
+					{
+						"name": "Gross (US & Canada)",
+						"type": "text"
+					},
+					{
+						"name": "Gross (World)",
+						"type": "text"
+					},
+					{
+						"name": "Rating_All_AllAges_Rating",
+						"type": "text"
+					},
+					{
+						"name": "Rating_All_AllAges_Number",
+						"type": "text"
+					},
+					{
+						"name": "Rating_All_under18_Rating",
+						"type": "text"
+					},
+					{
+						"name": "Rating_All_under18_Number",
+						"type": "text"
+					},
+					{
+						"name": "Rating_All_18-29_Rating",
+						"type": "text"
+					},
+					{
+						"name": "Rating_All_18-29_Number",
+						"type": "text"
+					},
+					{
+						"name": "Rating_All_30-44_Rating",
+						"type": "text"
+					},
+					{
+						"name": "Rating_All_30-44_Number",
+						"type": "text"
+					},
+					{
+						"name": "Rating_All_45above_Rating",
+						"type": "text"
+					},
+					{
+						"name": "Rating_All_45above_Number",
+						"type": "text"
+					},
+					{
+						"name": "Rating_Male_AllAges_Rating",
+						"type": "text"
+					},
+					{
+						"name": "Rating_Male_MaleAges_Number",
+						"type": "text"
+					},
+					{
+						"name": "Rating_Male_under18_Rating",
+						"type": "text"
+					},
+					{
+						"name": "Rating_Male_under18_Number",
+						"type": "text"
+					},
+					{
+						"name": "Rating_Male_18-29_Rating",
+						"type": "text"
+					},
+					{
+						"name": "Rating_Male_18-29_Number",
+						"type": "text"
+					},
+					{
+						"name": "Rating_Male_30-44_Rating",
+						"type": "text"
+					},
+					{
+						"name": "Rating_Male_30-44_Number",
+						"type": "text"
+					},
+					{
+						"name": "Rating_Male_45above_Rating",
+						"type": "text"
+					},
+					{
+						"name": "Rating_Male_45above_Number",
+						"type": "text"
+					},
+					{
+						"name": "Rating_Female_AllAges_Rating",
+						"type": "text"
+					},
+					{
+						"name": "Rating_Female_AllAges_Number",
+						"type": "text"
+					},
+					{
+						"name": "Rating_Female_under18_Rating",
+						"type": "text"
+					},
+					{
+						"name": "Rating_Female_under18_Number",
+						"type": "text"
+					},
+					{
+						"name": "Rating_Female_18-29_Rating",
+						"type": "text"
+					},
+					{
+						"name": "Rating_Female_18-29_Number",
+						"type": "text"
+					},
+					{
+						"name": "Rating_Female_30-44_Rating",
+						"type": "text"
+					},
+					{
+						"name": "Rating_Female_30-44_Number",
+						"type": "text"
+					},
+					{
+						"name": "Rating_Female_45above_Rating",
+						"type": "text"
+					},
+					{
+						"name": "Rating_Female_45above_Number",
+						"type": "text"
+					},
+					{
+						"name": "country_of_origin",
+						"type": "text"
+					},
+					{
+						"name": "Follows",
+						"type": "text"
+					},
+					{
+						"name": "Followed_by",
+						"type": "text"
+					},
+					{
+						"name": "Version_of",
+						"type": "text"
+					},
+					{
+						"name": "Spin_off",
+						"type": "text"
+					},
+					{
+						"name": "Remake_of",
+						"type": "text"
+					},
+					{
+						"name": "BestMovie_Win",
+						"type": "text"
+					},
+					{
+						"name": "BestDirector_Win",
+						"type": "text"
+					},
+					{
+						"name": "BestActor_Win",
+						"type": "text"
+					},
+					{
+						"name": "BestActress_Win",
+						"type": "text"
+					},
+					{
+						"name": "BestMovie_Nom",
+						"type": "text"
+					},
+					{
+						"name": "BestDirector_Nom",
+						"type": "text"
+					},
+					{
+						"name": "BestActor_Nom",
+						"type": "text"
+					},
+					{
+						"name": "BestActress_Nom",
+						"type": "text"
+					}
+				],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "movieAmazonDB"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/SQLout')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/CSVtoSQLmovies')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "CSV movies to SQL",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "DelimitedTextSource",
+								"storeSettings": {
+									"type": "AzureBlobStorageReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								},
+								"formatSettings": {
+									"type": "DelimitedTextReadSettings"
+								}
+							},
+							"sink": {
+								"type": "AzureSqlSink"
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "IMDB_ID",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "IMDB_ID",
+											"type": "String",
+											"physicalType": "text"
+										}
+									},
+									{
+										"source": {
+											"name": "RL_ID",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "RL_ID",
+											"type": "String",
+											"physicalType": "text"
+										}
+									},
+									{
+										"source": {
+											"name": "Name",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Name",
+											"type": "String",
+											"physicalType": "text"
+										}
+									},
+									{
+										"source": {
+											"name": "Release Date",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Release Date",
+											"type": "String",
+											"physicalType": "text"
+										}
+									},
+									{
+										"source": {
+											"name": "Rated",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Rated",
+											"type": "String",
+											"physicalType": "text"
+										}
+									},
+									{
+										"source": {
+											"name": "Duration",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Duration",
+											"type": "String",
+											"physicalType": "text"
+										}
+									},
+									{
+										"source": {
+											"name": "Genre",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Genre",
+											"type": "String",
+											"physicalType": "text"
+										}
+									},
+									{
+										"source": {
+											"name": "Rating",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Rating",
+											"type": "String",
+											"physicalType": "text"
+										}
+									},
+									{
+										"source": {
+											"name": "Vote Count",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Vote Count",
+											"type": "String",
+											"physicalType": "text"
+										}
+									},
+									{
+										"source": {
+											"name": "MovieMeter",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "MovieMeter",
+											"type": "String",
+											"physicalType": "text"
+										}
+									},
+									{
+										"source": {
+											"name": "Production Company",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Production Company",
+											"type": "String",
+											"physicalType": "text"
+										}
+									},
+									{
+										"source": {
+											"name": "Director",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Director",
+											"type": "String",
+											"physicalType": "text"
+										}
+									},
+									{
+										"source": {
+											"name": "Writer",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Writer",
+											"type": "String",
+											"physicalType": "text"
+										}
+									},
+									{
+										"source": {
+											"name": "Producer",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Producer",
+											"type": "String",
+											"physicalType": "text"
+										}
+									},
+									{
+										"source": {
+											"name": "Composer",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Composer",
+											"type": "String",
+											"physicalType": "text"
+										}
+									},
+									{
+										"source": {
+											"name": "Cinematographer",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Cinematographer",
+											"type": "String",
+											"physicalType": "text"
+										}
+									},
+									{
+										"source": {
+											"name": "Editor",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Editor",
+											"type": "String",
+											"physicalType": "text"
+										}
+									},
+									{
+										"source": {
+											"name": "Casting Directors",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Casting Directors",
+											"type": "String",
+											"physicalType": "text"
+										}
+									},
+									{
+										"source": {
+											"name": "Product Designers",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Product Designers",
+											"type": "String",
+											"physicalType": "text"
+										}
+									},
+									{
+										"source": {
+											"name": "Budget",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Budget",
+											"type": "String",
+											"physicalType": "text"
+										}
+									},
+									{
+										"source": {
+											"name": "Opening Weekend",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Opening Weekend",
+											"type": "String",
+											"physicalType": "text"
+										}
+									},
+									{
+										"source": {
+											"name": "Gross (US & Canada)",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Gross (US & Canada)",
+											"type": "String",
+											"physicalType": "text"
+										}
+									},
+									{
+										"source": {
+											"name": "Gross (World)",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Gross (World)",
+											"type": "String",
+											"physicalType": "text"
+										}
+									},
+									{
+										"source": {
+											"name": "Rating_All_AllAges_Rating",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Rating_All_AllAges_Rating",
+											"type": "String",
+											"physicalType": "text"
+										}
+									},
+									{
+										"source": {
+											"name": "Rating_All_AllAges_Number",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Rating_All_AllAges_Number",
+											"type": "String",
+											"physicalType": "text"
+										}
+									},
+									{
+										"source": {
+											"name": "Rating_All_under18_Rating",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Rating_All_under18_Rating",
+											"type": "String",
+											"physicalType": "text"
+										}
+									},
+									{
+										"source": {
+											"name": "Rating_All_under18_Number",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Rating_All_under18_Number",
+											"type": "String",
+											"physicalType": "text"
+										}
+									},
+									{
+										"source": {
+											"name": "Rating_All_18-29_Rating",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Rating_All_18-29_Rating",
+											"type": "String",
+											"physicalType": "text"
+										}
+									},
+									{
+										"source": {
+											"name": "Rating_All_18-29_Number",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Rating_All_18-29_Number",
+											"type": "String",
+											"physicalType": "text"
+										}
+									},
+									{
+										"source": {
+											"name": "Rating_All_30-44_Rating",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Rating_All_30-44_Rating",
+											"type": "String",
+											"physicalType": "text"
+										}
+									},
+									{
+										"source": {
+											"name": "Rating_All_30-44_Number",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Rating_All_30-44_Number",
+											"type": "String",
+											"physicalType": "text"
+										}
+									},
+									{
+										"source": {
+											"name": "Rating_All_45above_Rating",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Rating_All_45above_Rating",
+											"type": "String",
+											"physicalType": "text"
+										}
+									},
+									{
+										"source": {
+											"name": "Rating_All_45above_Number",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Rating_All_45above_Number",
+											"type": "String",
+											"physicalType": "text"
+										}
+									},
+									{
+										"source": {
+											"name": "Rating_Male_AllAges_Rating",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Rating_Male_AllAges_Rating",
+											"type": "String",
+											"physicalType": "text"
+										}
+									},
+									{
+										"source": {
+											"name": "Rating_Male_MaleAges_Number",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Rating_Male_MaleAges_Number",
+											"type": "String",
+											"physicalType": "text"
+										}
+									},
+									{
+										"source": {
+											"name": "Rating_Male_under18_Rating",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Rating_Male_under18_Rating",
+											"type": "String",
+											"physicalType": "text"
+										}
+									},
+									{
+										"source": {
+											"name": "Rating_Male_under18_Number",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Rating_Male_under18_Number",
+											"type": "String",
+											"physicalType": "text"
+										}
+									},
+									{
+										"source": {
+											"name": "Rating_Male_18-29_Rating",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Rating_Male_18-29_Rating",
+											"type": "String",
+											"physicalType": "text"
+										}
+									},
+									{
+										"source": {
+											"name": "Rating_Male_18-29_Number",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Rating_Male_18-29_Number",
+											"type": "String",
+											"physicalType": "text"
+										}
+									},
+									{
+										"source": {
+											"name": "Rating_Male_30-44_Rating",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Rating_Male_30-44_Rating",
+											"type": "String",
+											"physicalType": "text"
+										}
+									},
+									{
+										"source": {
+											"name": "Rating_Male_30-44_Number",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Rating_Male_30-44_Number",
+											"type": "String",
+											"physicalType": "text"
+										}
+									},
+									{
+										"source": {
+											"name": "Rating_Male_45above_Rating",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Rating_Male_45above_Rating",
+											"type": "String",
+											"physicalType": "text"
+										}
+									},
+									{
+										"source": {
+											"name": "Rating_Male_45above_Number",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Rating_Male_45above_Number",
+											"type": "String",
+											"physicalType": "text"
+										}
+									},
+									{
+										"source": {
+											"name": "Rating_Female_AllAges_Rating",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Rating_Female_AllAges_Rating",
+											"type": "String",
+											"physicalType": "text"
+										}
+									},
+									{
+										"source": {
+											"name": "Rating_Female_AllAges_Number",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Rating_Female_AllAges_Number",
+											"type": "String",
+											"physicalType": "text"
+										}
+									},
+									{
+										"source": {
+											"name": "Rating_Female_under18_Rating",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Rating_Female_under18_Rating",
+											"type": "String",
+											"physicalType": "text"
+										}
+									},
+									{
+										"source": {
+											"name": "Rating_Female_under18_Number",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Rating_Female_under18_Number",
+											"type": "String",
+											"physicalType": "text"
+										}
+									},
+									{
+										"source": {
+											"name": "Rating_Female_18-29_Rating",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Rating_Female_18-29_Rating",
+											"type": "String",
+											"physicalType": "text"
+										}
+									},
+									{
+										"source": {
+											"name": "Rating_Female_18-29_Number",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Rating_Female_18-29_Number",
+											"type": "String",
+											"physicalType": "text"
+										}
+									},
+									{
+										"source": {
+											"name": "Rating_Female_30-44_Rating",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Rating_Female_30-44_Rating",
+											"type": "String",
+											"physicalType": "text"
+										}
+									},
+									{
+										"source": {
+											"name": "Rating_Female_30-44_Number",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Rating_Female_30-44_Number",
+											"type": "String",
+											"physicalType": "text"
+										}
+									},
+									{
+										"source": {
+											"name": "Rating_Female_45above_Rating",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Rating_Female_45above_Rating",
+											"type": "String",
+											"physicalType": "text"
+										}
+									},
+									{
+										"source": {
+											"name": "Rating_Female_45above_Number",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Rating_Female_45above_Number",
+											"type": "String",
+											"physicalType": "text"
+										}
+									},
+									{
+										"source": {
+											"name": "country_of_origin",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "country_of_origin",
+											"type": "String",
+											"physicalType": "text"
+										}
+									},
+									{
+										"source": {
+											"name": "Follows",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Follows",
+											"type": "String",
+											"physicalType": "text"
+										}
+									},
+									{
+										"source": {
+											"name": "Followed_by",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Followed_by",
+											"type": "String",
+											"physicalType": "text"
+										}
+									},
+									{
+										"source": {
+											"name": "Version_of",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Version_of",
+											"type": "String",
+											"physicalType": "text"
+										}
+									},
+									{
+										"source": {
+											"name": "Spin_off",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Spin_off",
+											"type": "String",
+											"physicalType": "text"
+										}
+									},
+									{
+										"source": {
+											"name": "Remake_of",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Remake_of",
+											"type": "String",
+											"physicalType": "text"
+										}
+									},
+									{
+										"source": {
+											"name": "BestMovie_Win",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "BestMovie_Win",
+											"type": "String",
+											"physicalType": "text"
+										}
+									},
+									{
+										"source": {
+											"name": "BestDirector_Win",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "BestDirector_Win",
+											"type": "String",
+											"physicalType": "text"
+										}
+									},
+									{
+										"source": {
+											"name": "BestActor_Win",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "BestActor_Win",
+											"type": "String",
+											"physicalType": "text"
+										}
+									},
+									{
+										"source": {
+											"name": "BestActress_Win",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "BestActress_Win",
+											"type": "String",
+											"physicalType": "text"
+										}
+									},
+									{
+										"source": {
+											"name": "BestMovie_Nom",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "BestMovie_Nom",
+											"type": "String",
+											"physicalType": "text"
+										}
+									},
+									{
+										"source": {
+											"name": "BestDirector_Nom",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "BestDirector_Nom",
+											"type": "String",
+											"physicalType": "text"
+										}
+									},
+									{
+										"source": {
+											"name": "BestActor_Nom",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "BestActor_Nom",
+											"type": "String",
+											"physicalType": "text"
+										}
+									},
+									{
+										"source": {
+											"name": "BestActress_Nom",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "BestActress_Nom",
+											"type": "String",
+											"physicalType": "text"
+										}
+									}
+								],
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "importCSVmovie",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "outputSQLmovies",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/importCSVmovie')]",
+				"[concat(variables('factoryId'), '/datasets/outputSQLmovies')]"
+			]
+		}
+	]
+}

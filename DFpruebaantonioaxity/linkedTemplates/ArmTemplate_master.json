@@ -1,0 +1,70 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "DFpruebaantonioaxity"
+		},
+		"SQLout_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'SQLout'"
+		},
+		"importCSVmovies_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'importCSVmovies'"
+		},
+		"ls_datalake_curated_AHP_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'ls_datalake_curated_AHP'"
+		},
+		"ls_datalake_raw_AHP_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'ls_datalake_raw_AHP'"
+		},
+		"containerUri": {
+			"type": "string",
+			"metadata": "URI to storage account containing linked ARM templates"
+		},
+		"containerSasToken": {
+			"type": "string",
+			"metadata": "Sas token to storage account containing linked ARM templates"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "DFpruebaantonioaxity_ArmTemplate_0",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_0.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"SQLout_connectionString": {
+						"value": "[parameters('SQLout_connectionString')]"
+					},
+					"importCSVmovies_connectionString": {
+						"value": "[parameters('importCSVmovies_connectionString')]"
+					},
+					"ls_datalake_curated_AHP_connectionString": {
+						"value": "[parameters('ls_datalake_curated_AHP_connectionString')]"
+					},
+					"ls_datalake_raw_AHP_connectionString": {
+						"value": "[parameters('ls_datalake_raw_AHP_connectionString')]"
+					}
+				}
+			},
+			"dependsOn": []
+		}
+	]
+}
