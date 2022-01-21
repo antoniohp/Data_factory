@@ -1,0 +1,292 @@
+{
+	"name": "importCSVmovie",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "importCSVmovies",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "movies_AMAZON.csv",
+				"container": "terraform-demo"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "IMDB_ID",
+				"type": "String"
+			},
+			{
+				"name": "RL_ID",
+				"type": "String"
+			},
+			{
+				"name": "Name",
+				"type": "String"
+			},
+			{
+				"name": "Release Date",
+				"type": "String"
+			},
+			{
+				"name": "Rated",
+				"type": "String"
+			},
+			{
+				"name": "Duration",
+				"type": "String"
+			},
+			{
+				"name": "Genre",
+				"type": "String"
+			},
+			{
+				"name": "Rating",
+				"type": "String"
+			},
+			{
+				"name": "Vote Count",
+				"type": "String"
+			},
+			{
+				"name": "MovieMeter",
+				"type": "String"
+			},
+			{
+				"name": "Production Company",
+				"type": "String"
+			},
+			{
+				"name": "Director",
+				"type": "String"
+			},
+			{
+				"name": "Writer",
+				"type": "String"
+			},
+			{
+				"name": "Producer",
+				"type": "String"
+			},
+			{
+				"name": "Composer",
+				"type": "String"
+			},
+			{
+				"name": "Cinematographer",
+				"type": "String"
+			},
+			{
+				"name": "Editor",
+				"type": "String"
+			},
+			{
+				"name": "Casting Directors",
+				"type": "String"
+			},
+			{
+				"name": "Product Designers",
+				"type": "String"
+			},
+			{
+				"name": "Budget",
+				"type": "String"
+			},
+			{
+				"name": "Opening Weekend",
+				"type": "String"
+			},
+			{
+				"name": "Gross (US & Canada)",
+				"type": "String"
+			},
+			{
+				"name": "Gross (World)",
+				"type": "String"
+			},
+			{
+				"name": "Rating_All_AllAges_Rating",
+				"type": "String"
+			},
+			{
+				"name": "Rating_All_AllAges_Number",
+				"type": "String"
+			},
+			{
+				"name": "Rating_All_under18_Rating",
+				"type": "String"
+			},
+			{
+				"name": "Rating_All_under18_Number",
+				"type": "String"
+			},
+			{
+				"name": "Rating_All_18-29_Rating",
+				"type": "String"
+			},
+			{
+				"name": "Rating_All_18-29_Number",
+				"type": "String"
+			},
+			{
+				"name": "Rating_All_30-44_Rating",
+				"type": "String"
+			},
+			{
+				"name": "Rating_All_30-44_Number",
+				"type": "String"
+			},
+			{
+				"name": "Rating_All_45above_Rating",
+				"type": "String"
+			},
+			{
+				"name": "Rating_All_45above_Number",
+				"type": "String"
+			},
+			{
+				"name": "Rating_Male_AllAges_Rating",
+				"type": "String"
+			},
+			{
+				"name": "Rating_Male_MaleAges_Number",
+				"type": "String"
+			},
+			{
+				"name": "Rating_Male_under18_Rating",
+				"type": "String"
+			},
+			{
+				"name": "Rating_Male_under18_Number",
+				"type": "String"
+			},
+			{
+				"name": "Rating_Male_18-29_Rating",
+				"type": "String"
+			},
+			{
+				"name": "Rating_Male_18-29_Number",
+				"type": "String"
+			},
+			{
+				"name": "Rating_Male_30-44_Rating",
+				"type": "String"
+			},
+			{
+				"name": "Rating_Male_30-44_Number",
+				"type": "String"
+			},
+			{
+				"name": "Rating_Male_45above_Rating",
+				"type": "String"
+			},
+			{
+				"name": "Rating_Male_45above_Number",
+				"type": "String"
+			},
+			{
+				"name": "Rating_Female_AllAges_Rating",
+				"type": "String"
+			},
+			{
+				"name": "Rating_Female_AllAges_Number",
+				"type": "String"
+			},
+			{
+				"name": "Rating_Female_under18_Rating",
+				"type": "String"
+			},
+			{
+				"name": "Rating_Female_under18_Number",
+				"type": "String"
+			},
+			{
+				"name": "Rating_Female_18-29_Rating",
+				"type": "String"
+			},
+			{
+				"name": "Rating_Female_18-29_Number",
+				"type": "String"
+			},
+			{
+				"name": "Rating_Female_30-44_Rating",
+				"type": "String"
+			},
+			{
+				"name": "Rating_Female_30-44_Number",
+				"type": "String"
+			},
+			{
+				"name": "Rating_Female_45above_Rating",
+				"type": "String"
+			},
+			{
+				"name": "Rating_Female_45above_Number",
+				"type": "String"
+			},
+			{
+				"name": "country_of_origin",
+				"type": "String"
+			},
+			{
+				"name": "Follows",
+				"type": "String"
+			},
+			{
+				"name": "Followed_by",
+				"type": "String"
+			},
+			{
+				"name": "Version_of",
+				"type": "String"
+			},
+			{
+				"name": "Spin_off",
+				"type": "String"
+			},
+			{
+				"name": "Remake_of",
+				"type": "String"
+			},
+			{
+				"name": "BestMovie_Win",
+				"type": "String"
+			},
+			{
+				"name": "BestDirector_Win",
+				"type": "String"
+			},
+			{
+				"name": "BestActor_Win",
+				"type": "String"
+			},
+			{
+				"name": "BestActress_Win",
+				"type": "String"
+			},
+			{
+				"name": "BestMovie_Nom",
+				"type": "String"
+			},
+			{
+				"name": "BestDirector_Nom",
+				"type": "String"
+			},
+			{
+				"name": "BestActor_Nom",
+				"type": "String"
+			},
+			{
+				"name": "BestActress_Nom",
+				"type": "String"
+			}
+		]
+	}
+}

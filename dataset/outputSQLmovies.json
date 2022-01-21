@@ -1,0 +1,285 @@
+{
+	"name": "outputSQLmovies",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SQLout",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "IMDB_ID",
+				"type": "text"
+			},
+			{
+				"name": "RL_ID",
+				"type": "text"
+			},
+			{
+				"name": "Name",
+				"type": "text"
+			},
+			{
+				"name": "Release Date",
+				"type": "text"
+			},
+			{
+				"name": "Rated",
+				"type": "text"
+			},
+			{
+				"name": "Duration",
+				"type": "text"
+			},
+			{
+				"name": "Genre",
+				"type": "text"
+			},
+			{
+				"name": "Rating",
+				"type": "text"
+			},
+			{
+				"name": "Vote Count",
+				"type": "text"
+			},
+			{
+				"name": "MovieMeter",
+				"type": "text"
+			},
+			{
+				"name": "Production Company",
+				"type": "text"
+			},
+			{
+				"name": "Director",
+				"type": "text"
+			},
+			{
+				"name": "Writer",
+				"type": "text"
+			},
+			{
+				"name": "Producer",
+				"type": "text"
+			},
+			{
+				"name": "Composer",
+				"type": "text"
+			},
+			{
+				"name": "Cinematographer",
+				"type": "text"
+			},
+			{
+				"name": "Editor",
+				"type": "text"
+			},
+			{
+				"name": "Casting Directors",
+				"type": "text"
+			},
+			{
+				"name": "Product Designers",
+				"type": "text"
+			},
+			{
+				"name": "Budget",
+				"type": "text"
+			},
+			{
+				"name": "Opening Weekend",
+				"type": "text"
+			},
+			{
+				"name": "Gross (US & Canada)",
+				"type": "text"
+			},
+			{
+				"name": "Gross (World)",
+				"type": "text"
+			},
+			{
+				"name": "Rating_All_AllAges_Rating",
+				"type": "text"
+			},
+			{
+				"name": "Rating_All_AllAges_Number",
+				"type": "text"
+			},
+			{
+				"name": "Rating_All_under18_Rating",
+				"type": "text"
+			},
+			{
+				"name": "Rating_All_under18_Number",
+				"type": "text"
+			},
+			{
+				"name": "Rating_All_18-29_Rating",
+				"type": "text"
+			},
+			{
+				"name": "Rating_All_18-29_Number",
+				"type": "text"
+			},
+			{
+				"name": "Rating_All_30-44_Rating",
+				"type": "text"
+			},
+			{
+				"name": "Rating_All_30-44_Number",
+				"type": "text"
+			},
+			{
+				"name": "Rating_All_45above_Rating",
+				"type": "text"
+			},
+			{
+				"name": "Rating_All_45above_Number",
+				"type": "text"
+			},
+			{
+				"name": "Rating_Male_AllAges_Rating",
+				"type": "text"
+			},
+			{
+				"name": "Rating_Male_MaleAges_Number",
+				"type": "text"
+			},
+			{
+				"name": "Rating_Male_under18_Rating",
+				"type": "text"
+			},
+			{
+				"name": "Rating_Male_under18_Number",
+				"type": "text"
+			},
+			{
+				"name": "Rating_Male_18-29_Rating",
+				"type": "text"
+			},
+			{
+				"name": "Rating_Male_18-29_Number",
+				"type": "text"
+			},
+			{
+				"name": "Rating_Male_30-44_Rating",
+				"type": "text"
+			},
+			{
+				"name": "Rating_Male_30-44_Number",
+				"type": "text"
+			},
+			{
+				"name": "Rating_Male_45above_Rating",
+				"type": "text"
+			},
+			{
+				"name": "Rating_Male_45above_Number",
+				"type": "text"
+			},
+			{
+				"name": "Rating_Female_AllAges_Rating",
+				"type": "text"
+			},
+			{
+				"name": "Rating_Female_AllAges_Number",
+				"type": "text"
+			},
+			{
+				"name": "Rating_Female_under18_Rating",
+				"type": "text"
+			},
+			{
+				"name": "Rating_Female_under18_Number",
+				"type": "text"
+			},
+			{
+				"name": "Rating_Female_18-29_Rating",
+				"type": "text"
+			},
+			{
+				"name": "Rating_Female_18-29_Number",
+				"type": "text"
+			},
+			{
+				"name": "Rating_Female_30-44_Rating",
+				"type": "text"
+			},
+			{
+				"name": "Rating_Female_30-44_Number",
+				"type": "text"
+			},
+			{
+				"name": "Rating_Female_45above_Rating",
+				"type": "text"
+			},
+			{
+				"name": "Rating_Female_45above_Number",
+				"type": "text"
+			},
+			{
+				"name": "country_of_origin",
+				"type": "text"
+			},
+			{
+				"name": "Follows",
+				"type": "text"
+			},
+			{
+				"name": "Followed_by",
+				"type": "text"
+			},
+			{
+				"name": "Version_of",
+				"type": "text"
+			},
+			{
+				"name": "Spin_off",
+				"type": "text"
+			},
+			{
+				"name": "Remake_of",
+				"type": "text"
+			},
+			{
+				"name": "BestMovie_Win",
+				"type": "text"
+			},
+			{
+				"name": "BestDirector_Win",
+				"type": "text"
+			},
+			{
+				"name": "BestActor_Win",
+				"type": "text"
+			},
+			{
+				"name": "BestActress_Win",
+				"type": "text"
+			},
+			{
+				"name": "BestMovie_Nom",
+				"type": "text"
+			},
+			{
+				"name": "BestDirector_Nom",
+				"type": "text"
+			},
+			{
+				"name": "BestActor_Nom",
+				"type": "text"
+			},
+			{
+				"name": "BestActress_Nom",
+				"type": "text"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "movieAmazonDB"
+		}
+	}
+}
